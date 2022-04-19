@@ -35,6 +35,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Listener(
+      /// Listener.onPointerUp cannot check if the clicked mouse button is
+      /// the secondary one.
       onPointerDown: (event) {
         _openContextMenu = event.kind == PointerDeviceKind.mouse &&
             event.buttons == kSecondaryMouseButton;
