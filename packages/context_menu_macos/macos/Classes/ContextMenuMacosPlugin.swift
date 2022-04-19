@@ -26,6 +26,12 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
     result(sender.tag)
   }
 
+  /// Defines the available menu items types.
+  enum menuItemType: String {
+    case standard = "standard"
+    case separator = "separator"
+  }
+
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "context_menu_macos", binaryMessenger: registrar.messenger)
     let instance = ContextMenuMacosPlugin(registrar)
@@ -68,7 +74,7 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
     }
   }
 
-  /// Creats the context menu for the given items.
+  /// Creates the context menu for the given items.
   func createContextMenu(_ items: NSArray) -> NSMenu {
     let menu = NSMenu()
 
@@ -79,7 +85,7 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
       let type = item["type"] as! String
 
       // If the menu is separator, it does not have a title or an action.
-      if type == "separator" {
+      if type == menuItemType.separator.rawValue {
         menuItem = .separator()
       } else {
         menuItem = NSMenuItem(
