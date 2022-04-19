@@ -2,7 +2,7 @@ import Cocoa
 import FlutterMacOS
 
 public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
-  /// Used to get the flutter app window.
+  /// Used to save the flutter app window.
   let registrar: FlutterPluginRegistrar
 
   init(_ registrar: FlutterPluginRegistrar) {
