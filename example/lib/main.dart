@@ -1,4 +1,5 @@
 import 'package:context_menu_api/context_menu_api.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,27 +30,55 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _openContextMenu = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: FutureBuilder<String?>(
-          future: ContextMenuApi.instance.platformVersion,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Text(
-                '${snapshot.data}',
-                style: Theme.of(context).textTheme.headline4,
-              );
-            }
+    return Listener(
+      onPointerDown: (event) {
+        _openContextMenu = event.kind == PointerDeviceKind.mouse &&
+            event.buttons == kSecondaryMouseButton;
+      },
+      onPointerUp: (event) {
+        if (!_openContextMenu) {
+          return;
+        }
 
-            return const SizedBox.shrink();
-          },
+        _openContextMenu = false;
+
+        _showContextMenu();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: const Center(
+          child: Text('right click anywhere to open context menu'),
         ),
       ),
     );
+  }
+
+  void _showContextMenu() async {
+    final selectedItem = await ContextMenuApi.instance.showContextMenu(
+      menuItems: [
+        ContextMenuItem(
+          title: 'Item number one',
+          onTap: () {},
+        ),
+        const ContextMenuItem.separator(),
+        ContextMenuItem(
+          title: 'Item number two',
+          onTap: () {},
+        ),
+        const ContextMenuItem(title: 'Disabled item'),
+      ],
+    );
+
+    if (selectedItem == null) {
+      return null;
+    }
+
+    print(selectedItem.title);
   }
 }

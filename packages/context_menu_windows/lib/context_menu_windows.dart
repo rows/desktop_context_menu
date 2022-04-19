@@ -11,8 +11,9 @@ class ContextMenuWindows extends ContextMenuApi {
   }
 
   @override
-  Future<String?> get platformVersion async {
-    final version = await _channel.invokeMethod<String?>('getPlatformVersion');
-    return version;
+  Future<ContextMenuItem?> showContextMenu({
+    required List<ContextMenuItem> menuItems,
+  }) {
+    throw UnimplementedError();
   }
 }
