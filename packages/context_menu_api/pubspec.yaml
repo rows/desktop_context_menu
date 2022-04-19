@@ -1,0 +1,15 @@
+name: context_menu_api
+description: The common API for context menu platform plugins.
+version: 0.0.1
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  rows_lint: 0.1.1

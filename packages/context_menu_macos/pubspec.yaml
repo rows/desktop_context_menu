@@ -1,0 +1,27 @@
+name: context_menu_macos
+description: The implementation of the context menu plugin for MacOS.
+version: 0.0.1
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.5.0"
+
+dependencies:
+  context_menu_api:
+    path: ../context_menu_api
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  rows_lint: 0.1.1
+
+flutter:
+  plugin:
+    implements: context_menu_plugin
+    platforms:
+      macos:
+        dartPluginClass: ContextMenuMacos
+        pluginClass: ContextMenuMacosPlugin

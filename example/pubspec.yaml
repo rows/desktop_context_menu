@@ -1,0 +1,22 @@
+name: context_menu_plugin_example
+description: Demonstrates how to use the context_menu_plugin plugin.
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  context_menu_plugin:
+    path: ../
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  rows_lint: 0.1.1
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
