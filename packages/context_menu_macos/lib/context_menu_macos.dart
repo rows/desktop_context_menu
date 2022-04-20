@@ -12,7 +12,7 @@ class ContextMenuMacos extends ContextMenuApi {
 
   @override
   Future<ContextMenuItem?> showContextMenu({
-    required List<ContextMenuItem> menuItems,
+    required Iterable<ContextMenuItem> menuItems,
   }) async {
     final selectedItemId = await _channel.invokeMethod<int?>(
       'showContextMenu',

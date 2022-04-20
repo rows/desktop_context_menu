@@ -13,7 +13,10 @@ enum _ContextMenuItemType {
 ///
 /// [ContextMenuItem.separator] is to create a divider between menu items.
 class ContextMenuItem {
+  /// The title of the context menu item.
   final String? title;
+
+  /// Callback invoked when a menu item is tapped.
   final VoidCallback? onTap;
 
   final _ContextMenuItemType _type;
@@ -23,6 +26,7 @@ class ContextMenuItem {
     this.onTap,
   }) : _type = _ContextMenuItemType.standard;
 
+  /// Creates a separator between menu items.
   const ContextMenuItem.separator()
       : title = null,
         onTap = null,
@@ -42,9 +46,9 @@ class ContextMenuItem {
 abstract class ContextMenuApi {
   static ContextMenuApi instance = _UnsupportedPlatformContextMenuApi();
 
-  /// Shows the context menu with the given [menuItems] at the mouse position.
+  /// Shows the context menu with the given [menuItems] at the pointer position.
   Future<ContextMenuItem?> showContextMenu({
-    required List<ContextMenuItem> menuItems,
+    required Iterable<ContextMenuItem> menuItems,
   });
 }
 
@@ -53,7 +57,7 @@ abstract class ContextMenuApi {
 class _UnsupportedPlatformContextMenuApi extends ContextMenuApi {
   @override
   Future<ContextMenuItem?> showContextMenu({
-    required List<ContextMenuItem> menuItems,
+    required Iterable<ContextMenuItem> menuItems,
   }) {
     throw UnimplementedError(
       'Context menu plugin not implemented in this platform.',

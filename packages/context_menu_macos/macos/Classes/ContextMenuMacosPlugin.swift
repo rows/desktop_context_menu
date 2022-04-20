@@ -63,7 +63,7 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
           in: activeWindow.contentView
         )
 
-        // The `popUp` function returns `true`` if an item was selected and `false` if the menu was dismissed.
+        // The `popUp` function returns `true` if an item was selected and `false` if the menu was dismissed.
         //
         // The follow condition alerts the method channel that the menu was dismissed.
         if !popUpMenuResult {
@@ -99,7 +99,7 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
 
       menuItem.target = self
 
-      // Sets the index of the current menu item.
+      // Sets the id of the current menu item.
       menuItem.tag = index
 
       menu.addItem(menuItem)
