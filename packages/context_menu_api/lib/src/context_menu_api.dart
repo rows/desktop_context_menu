@@ -85,6 +85,8 @@ extension on SingleActivator {
 abstract class ContextMenuApi {
   static ContextMenuApi instance = _UnsupportedPlatformContextMenuApi();
 
+  /// Set the name of the channel that the platform will listen to in the native
+  /// code.
   MethodChannel get channel;
 
   /// Shows the context menu with the given [menuItems] at the pointer position.
