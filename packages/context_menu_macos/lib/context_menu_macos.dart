@@ -11,8 +11,18 @@ class ContextMenuMacos extends ContextMenuApi {
   }
 
   @override
-  Future<String?> get platformVersion async {
-    final version = await _channel.invokeMethod<String?>('getPlatformVersion');
-    return version;
+  Future<ContextMenuItem?> showContextMenu({
+    required Iterable<ContextMenuItem> menuItems,
+  }) async {
+    final selectedItemId = await _channel.invokeMethod<int?>(
+      'showContextMenu',
+      menuItems.map((menuItem) => menuItem.toJson()).toList(),
+    );
+
+    if (selectedItemId == null) {
+      return null;
+    }
+
+    return menuItems.elementAt(selectedItemId);
   }
 }
