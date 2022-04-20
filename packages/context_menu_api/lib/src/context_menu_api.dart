@@ -85,6 +85,8 @@ extension on SingleActivator {
 abstract class ContextMenuApi {
   static ContextMenuApi instance = _UnsupportedPlatformContextMenuApi();
 
+  MethodChannel get channel;
+
   /// Shows the context menu with the given [menuItems] at the pointer position.
   Future<ContextMenuItemBase?> showContextMenu({
     required Iterable<ContextMenuItemBase> menuItems,
