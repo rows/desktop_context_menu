@@ -68,11 +68,8 @@ void ContextMenuWindowsPlugin::HandleMethodCall(
     // Creates the context menu.
     HMENU contextMenu = CreatePopupMenu();
 
-    // Gets the arguments passed through on the channel.
-    auto arguments = std::get<flutter::EncodableMap>(*method_call.arguments());
-
     // Gets the menu items of the context menu that have been passed through the arguments parameter.
-    auto items = std::get<flutter::EncodableList>(arguments[flutter::EncodableValue("items")]);
+    auto items = std::get<flutter::EncodableList>(*method_call.arguments());
 
     // Unfortunately, `TrackPopupMenu` returns `0` instead of `-1` when no item is selected. Because of that, 
     // the id of the first element of `items` starts at `1` instead of `0`.
