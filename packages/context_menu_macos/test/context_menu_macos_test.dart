@@ -1,5 +1,6 @@
 import 'package:context_menu_api/context_menu_api.dart';
 import 'package:context_menu_macos/context_menu_macos.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -12,6 +13,13 @@ void main() {
     ContextMenuItem(title: 'Item 1', onTap: () {}),
     const ContextMenuItem.separator(),
     const ContextMenuItem(title: 'Disabled item'),
+    const ContextMenuItem(
+      title: 'Copy',
+      shortcut: SingleActivator(
+        LogicalKeyboardKey.keyC,
+        meta: true,
+      ),
+    ),
   ];
 
   setUpAll(() {
@@ -49,6 +57,19 @@ void main() {
 
       expect(selectedItem, isNotNull);
       expect(selectedItem!.title, isNotNull);
+      expect(selectedItem.onTap, isNull);
+    });
+
+    test('shortcut', () async {
+      final selectedItem = await contextMenuMacosTester.mockSelectedItem(
+        selectedItemId: 3,
+        menuItems: menuItems,
+      );
+
+      expect(selectedItem, isNotNull);
+      expect(selectedItem!.title, isNotNull);
+      expect(selectedItem.shortcut!.trigger, LogicalKeyboardKey.keyC);
+      expect(selectedItem.shortcut!.meta, isTrue);
       expect(selectedItem.onTap, isNull);
     });
   });

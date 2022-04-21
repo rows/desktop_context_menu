@@ -96,6 +96,14 @@ class _MyHomePageState extends State<MyHomePage> {
           onTap: () {},
         ),
         const ContextMenuItem(title: 'Disabled item'),
+        const ContextMenuItem(
+          title: 'Disabled item with shortcut',
+          shortcut: SingleActivator(
+            LogicalKeyboardKey.keyV,
+            meta: true,
+            shift: true,
+          ),
+        ),
       ],
     );
 
