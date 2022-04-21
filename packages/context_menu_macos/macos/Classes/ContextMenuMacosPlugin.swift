@@ -36,7 +36,7 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
   enum shortcutModifier: String, CaseIterable {
     case command = "command"
     case shift = "shift"
-    case option = "option"
+    case alt = "alt"
     case control = "control"
   }
 
@@ -46,7 +46,7 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
   let shortcutModifiersFlags: [shortcutModifier: NSEvent.ModifierFlags] = [
     shortcutModifier.command: NSEvent.ModifierFlags.command,
     shortcutModifier.shift: NSEvent.ModifierFlags.shift,
-    shortcutModifier.option: NSEvent.ModifierFlags.option,
+    shortcutModifier.alt: NSEvent.ModifierFlags.option,
     shortcutModifier.control: NSEvent.ModifierFlags.control
   ]
 
@@ -155,7 +155,7 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
       let isEnabled = currentShortcut[modifier.rawValue] as? Bool == true
 
       if isEnabled {
-        modifiers.insert(shortcutModifiersFlags[modifier]! as! NSEvent.ModifierFlags)
+        modifiers.insert(shortcutModifiersFlags[modifier]!)
       }    
     }
 

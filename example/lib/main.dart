@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         ContextMenuItem(
-          title: 'Plain paste',
+          title: 'Paste as values',
           onTap: () {},
           shortcut: const SingleActivator(
             LogicalKeyboardKey.keyV,
@@ -103,6 +103,32 @@ class _MyHomePageState extends State<MyHomePage> {
             meta: true,
             shift: true,
           ),
+        ),
+        const ContextMenuItem.separator(),
+        ContextMenuItem(
+          title: 'Zoom in',
+          shortcut: const SingleActivator(
+            LogicalKeyboardKey.add,
+            alt: true,
+          ),
+          onTap: () {},
+        ),
+        ContextMenuItem(
+          title: 'Zoom out',
+          shortcut: const SingleActivator(
+            LogicalKeyboardKey.minus,
+            alt: true,
+          ),
+          onTap: () {},
+        ),
+        const ContextMenuItem.separator(),
+        ContextMenuItem(
+          title: 'Control shortcut',
+          shortcut: const SingleActivator(
+            LogicalKeyboardKey.keyD,
+            control: true,
+          ),
+          onTap: () {},
         ),
       ],
     );

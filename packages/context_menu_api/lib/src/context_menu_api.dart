@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 /// The type of the context menu item.
 ///
@@ -57,8 +57,15 @@ extension on SingleActivator {
       'command': meta,
       'shift': shift,
 
-      // If `keyEquivalent` is defined with an upper case letter in MacOS, it
-      // will automatically add a SHIFT modifier to the shortcut.
+      // In MacOS, a menu is a `NSMenu`. Each item of it is a `NSMenuItem`.
+      //
+      // When instantiating a `NSMenuItem`, we define a shortcut key with
+      // the property `keyEquivalent`. This property takes a character that
+      // corresponds to the key triggered in the keyboard. In case this
+      // property is defined with an upper case letter, it will automatically
+      // add a `SHIFT` modifier to the shortcut. To prevent that, we convert
+      // the `keyLabel` to lower case and decide to use `SHIFT` or not with the
+      // value of [SingleActivator.shift].
       'key': trigger.keyLabel.toLowerCase(),
     };
   }
