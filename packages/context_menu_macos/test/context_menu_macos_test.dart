@@ -11,14 +11,15 @@ void main() {
 
   final menuItems = [
     ContextMenuItem(title: 'Item 1', onTap: () {}),
-    const ContextMenuItem.separator(),
-    const ContextMenuItem(title: 'Disabled item'),
-    const ContextMenuItem(
+    ContextMenuItemSeparator(),
+    ContextMenuItem(title: 'Disabled item'),
+    ContextMenuItem(
       title: 'Copy',
-      shortcut: SingleActivator(
+      shortcut: const SingleActivator(
         LogicalKeyboardKey.keyC,
         meta: true,
       ),
+      onTap: () {},
     ),
   ];
 
@@ -33,9 +34,16 @@ void main() {
         menuItems: menuItems,
       );
 
-      expect(selectedItem, isNotNull);
-      expect(selectedItem!.title, isNotNull);
-      expect(selectedItem.onTap, isNotNull);
+      final contextMenuItem = selectedItem! as ContextMenuItem;
+
+      expect(contextMenuItem.title, 'Item 1');
+      expect(contextMenuItem.onTap, isNotNull);
+      expect(contextMenuItem.toJson(), {
+        'title': 'Item 1',
+        'enabled': true,
+        'shortcut': null,
+        'type': 'standard',
+      });
     });
 
     test('separator', () async {
@@ -44,9 +52,9 @@ void main() {
         menuItems: menuItems,
       );
 
-      expect(selectedItem, isNotNull);
-      expect(selectedItem!.title, isNull);
-      expect(selectedItem.onTap, isNull);
+      final contextMenuItem = selectedItem! as ContextMenuItemSeparator;
+
+      expect(contextMenuItem.toJson(), {'type': 'separator'});
     });
 
     test('disabled', () async {
@@ -55,9 +63,16 @@ void main() {
         menuItems: menuItems,
       );
 
-      expect(selectedItem, isNotNull);
-      expect(selectedItem!.title, isNotNull);
-      expect(selectedItem.onTap, isNull);
+      final contextMenuItem = selectedItem! as ContextMenuItem;
+
+      expect(contextMenuItem.title, 'Disabled item');
+      expect(contextMenuItem.onTap, isNull);
+      expect(contextMenuItem.toJson(), {
+        'title': 'Disabled item',
+        'enabled': false,
+        'shortcut': null,
+        'type': 'standard',
+      });
     });
 
     test('shortcut', () async {
@@ -66,11 +81,22 @@ void main() {
         menuItems: menuItems,
       );
 
-      expect(selectedItem, isNotNull);
-      expect(selectedItem!.title, isNotNull);
-      expect(selectedItem.shortcut!.trigger, LogicalKeyboardKey.keyC);
-      expect(selectedItem.shortcut!.meta, isTrue);
-      expect(selectedItem.onTap, isNull);
+      final contextMenuItem = selectedItem! as ContextMenuItem;
+
+      expect(contextMenuItem.title, 'Copy');
+      expect(contextMenuItem.onTap, isNotNull);
+      expect(contextMenuItem.toJson(), {
+        'title': 'Copy',
+        'enabled': true,
+        'shortcut': {
+          'alt': false,
+          'control': false,
+          'command': true,
+          'shift': false,
+          'key': 'c',
+        },
+        'type': 'standard',
+      });
     });
   });
 }
@@ -78,9 +104,9 @@ void main() {
 class _ContextMenuMacosTester {
   const _ContextMenuMacosTester();
 
-  Future<ContextMenuItem?> mockSelectedItem({
+  Future<ContextMenuItemBase?> mockSelectedItem({
     required int selectedItemId,
-    required List<ContextMenuItem> menuItems,
+    required List<ContextMenuItemBase> menuItems,
   }) async {
     const channel = MethodChannel('context_menu_macos');
 

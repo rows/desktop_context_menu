@@ -9,10 +9,13 @@ enum _ContextMenuItemType {
   separator,
 }
 
-/// A class that represents each menu item of the context menu.
-///
-/// [ContextMenuItem.separator] is to create a divider between menu items.
-class ContextMenuItem {
+/// A class that represents each item of the context menu.
+abstract class ContextMenuItemBase {
+  Map<String, dynamic> toJson();
+}
+
+/// A class that represents each standard menu item of the context menu.
+class ContextMenuItem extends ContextMenuItemBase {
   /// The title of the context menu item.
   final String? title;
 
@@ -24,24 +27,32 @@ class ContextMenuItem {
 
   final _ContextMenuItemType _type;
 
-  const ContextMenuItem({
+  ContextMenuItem({
     required this.title,
     this.onTap,
     this.shortcut,
   }) : _type = _ContextMenuItemType.standard;
 
-  /// Creates a separator between menu items.
-  const ContextMenuItem.separator()
-      : title = null,
-        onTap = null,
-        shortcut = null,
-        _type = _ContextMenuItemType.separator;
-
+  @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'title': title,
       'enabled': onTap != null,
       'shortcut': shortcut?.toJson(),
+      'type': _type.name,
+    };
+  }
+}
+
+/// A class that represents a separator between menu items in the context menu.
+class ContextMenuItemSeparator extends ContextMenuItemBase {
+  final _ContextMenuItemType _type;
+
+  ContextMenuItemSeparator() : _type = _ContextMenuItemType.separator;
+
+  @override
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
       'type': _type.name,
     };
   }
@@ -77,8 +88,8 @@ abstract class ContextMenuApi {
   static ContextMenuApi instance = _UnsupportedPlatformContextMenuApi();
 
   /// Shows the context menu with the given [menuItems] at the pointer position.
-  Future<ContextMenuItem?> showContextMenu({
-    required Iterable<ContextMenuItem> menuItems,
+  Future<ContextMenuItemBase?> showContextMenu({
+    required Iterable<ContextMenuItemBase> menuItems,
   });
 }
 
@@ -86,8 +97,8 @@ abstract class ContextMenuApi {
 /// platforms.
 class _UnsupportedPlatformContextMenuApi extends ContextMenuApi {
   @override
-  Future<ContextMenuItem?> showContextMenu({
-    required Iterable<ContextMenuItem> menuItems,
+  Future<ContextMenuItemBase?> showContextMenu({
+    required Iterable<ContextMenuItemBase> menuItems,
   }) {
     throw UnimplementedError(
       'Context menu plugin not implemented in this platform.',
