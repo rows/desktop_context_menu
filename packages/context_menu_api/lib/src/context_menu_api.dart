@@ -11,6 +11,8 @@ enum _ContextMenuItemType {
 
 /// A class that represents each item of the context menu.
 abstract class ContextMenuItemBase {
+  const ContextMenuItemBase();
+
   Map<String, dynamic> toJson();
 }
 
@@ -25,13 +27,11 @@ class ContextMenuItem extends ContextMenuItemBase {
   /// The shortcut that appears on the right of a menu item.
   final SingleActivator? shortcut;
 
-  final _ContextMenuItemType _type;
-
-  ContextMenuItem({
+  const ContextMenuItem({
     required this.title,
     this.onTap,
     this.shortcut,
-  }) : _type = _ContextMenuItemType.standard;
+  });
 
   @override
   Map<String, dynamic> toJson() {
@@ -39,21 +39,19 @@ class ContextMenuItem extends ContextMenuItemBase {
       'title': title,
       'enabled': onTap != null,
       'shortcut': shortcut?.toJson(),
-      'type': _type.name,
+      'type': _ContextMenuItemType.standard.name,
     };
   }
 }
 
 /// A class that represents a separator between menu items in the context menu.
 class ContextMenuItemSeparator extends ContextMenuItemBase {
-  final _ContextMenuItemType _type;
-
-  ContextMenuItemSeparator() : _type = _ContextMenuItemType.separator;
+  const ContextMenuItemSeparator();
 
   @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'type': _type.name,
+      'type': _ContextMenuItemType.separator.name,
     };
   }
 }

@@ -90,21 +90,21 @@ class _MyHomePageState extends State<MyHomePage> {
             shift: true,
           ),
         ),
-        ContextMenuItemSeparator(),
+        const ContextMenuItemSeparator(),
         ContextMenuItem(
           title: 'Item number two',
           onTap: () {},
         ),
-        ContextMenuItem(title: 'Disabled item'),
-        ContextMenuItem(
+        const ContextMenuItem(title: 'Disabled item'),
+        const ContextMenuItem(
           title: 'Disabled item with shortcut',
-          shortcut: const SingleActivator(
+          shortcut: SingleActivator(
             LogicalKeyboardKey.keyV,
             meta: true,
             shift: true,
           ),
         ),
-        ContextMenuItemSeparator(),
+        const ContextMenuItemSeparator(),
         ContextMenuItem(
           title: 'Zoom in',
           shortcut: const SingleActivator(
@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           onTap: () {},
         ),
-        ContextMenuItemSeparator(),
+        const ContextMenuItemSeparator(),
         ContextMenuItem(
           title: 'Control shortcut',
           shortcut: const SingleActivator(

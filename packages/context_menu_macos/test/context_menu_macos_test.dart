@@ -11,8 +11,8 @@ void main() {
 
   final menuItems = [
     ContextMenuItem(title: 'Item 1', onTap: () {}),
-    ContextMenuItemSeparator(),
-    ContextMenuItem(title: 'Disabled item'),
+    const ContextMenuItemSeparator(),
+    const ContextMenuItem(title: 'Disabled item'),
     ContextMenuItem(
       title: 'Copy',
       shortcut: const SingleActivator(
