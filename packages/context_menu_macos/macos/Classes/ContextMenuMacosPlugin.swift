@@ -32,6 +32,24 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
     case separator = "separator"
   }
 
+  /// Defines the possible modifiers of a shortcut.
+  enum shortcutModifier: String, CaseIterable {
+    case command = "command"
+    case shift = "shift"
+    case option = "option"
+    case control = "control"
+  }
+
+  /// Maps a `shortcutModifier` to a `NSEvent.ModifierFlags` struct.
+  ///
+  /// Used to define the `keyEquivalentModifierMask` property of a `NSMenuItem`.
+  let shortcutModifiersFlags: [shortcutModifier: NSEvent.ModifierFlags] = [
+    shortcutModifier.command: NSEvent.ModifierFlags.command,
+    shortcutModifier.shift: NSEvent.ModifierFlags.shift,
+    shortcutModifier.option: NSEvent.ModifierFlags.option,
+    shortcutModifier.control: NSEvent.ModifierFlags.control
+  ]
+
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "context_menu_macos", binaryMessenger: registrar.messenger)
     let instance = ContextMenuMacosPlugin(registrar)
@@ -88,11 +106,22 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
       if type == menuItemType.separator.rawValue {
         menuItem = .separator()
       } else {
+        let shortcut = item["shortcut"] as? NSDictionary
+        let key = shortcut?["key"] as? String
+
         menuItem = NSMenuItem(
           title: item["title"] as! String,
           action: #selector(emitSelectedItemId(_:)),
-          keyEquivalent: ""
+          // `keyEquivalent` can't be null.
+          keyEquivalent: key ?? ""
         )
+
+        let modifiers = getShortcutModifiers(shortcut)
+
+        // Sets the current menu item modifiers if they are not null.
+        if modifiers != nil {
+          menuItem.keyEquivalentModifierMask = modifiers!
+        }
 
         menuItem.isEnabled = item["enabled"] as! Bool == true
       }
@@ -109,5 +138,27 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
     menu.autoenablesItems = false
 
     return menu
+  }
+
+  /// Gets the current shortcut modifiers.
+  ///
+  /// See:
+  /// - `shortcutModifier` enum and `shortcutModifiersFlags` map.
+  func getShortcutModifiers(_ shortcut: NSDictionary?) -> NSEvent.ModifierFlags? {
+    guard let currentShortcut = shortcut else {
+      return nil
+    }
+
+    var modifiers: NSEvent.ModifierFlags = []
+
+    for modifier in shortcutModifier.allCases {
+      let isEnabled = currentShortcut[modifier.rawValue] as? Bool == true
+
+      if isEnabled {
+        modifiers.insert(shortcutModifiersFlags[modifier]! as! NSEvent.ModifierFlags)
+      }    
+    }
+
+    return modifiers
   }
 }

@@ -1,6 +1,7 @@
 import 'package:context_menu_api/context_menu_api.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -65,8 +66,29 @@ class _MyHomePageState extends State<MyHomePage> {
     final selectedItem = await ContextMenuApi.instance.showContextMenu(
       menuItems: [
         ContextMenuItem(
-          title: 'Item number one',
+          title: 'Copy',
           onTap: () {},
+          shortcut: const SingleActivator(
+            LogicalKeyboardKey.keyC,
+            meta: true,
+          ),
+        ),
+        ContextMenuItem(
+          title: 'Paste',
+          onTap: () {},
+          shortcut: const SingleActivator(
+            LogicalKeyboardKey.keyV,
+            meta: true,
+          ),
+        ),
+        ContextMenuItem(
+          title: 'Plain paste',
+          onTap: () {},
+          shortcut: const SingleActivator(
+            LogicalKeyboardKey.keyV,
+            meta: true,
+            shift: true,
+          ),
         ),
         const ContextMenuItem.separator(),
         ContextMenuItem(
