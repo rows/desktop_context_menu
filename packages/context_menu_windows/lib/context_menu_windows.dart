@@ -11,8 +11,8 @@ class ContextMenuWindows extends ContextMenuApi {
   }
 
   @override
-  Future<ContextMenuItem?> showContextMenu({
-    required Iterable<ContextMenuItem> menuItems,
+  Future<ContextMenuItemBase?> showContextMenu({
+    required Iterable<ContextMenuItemBase> menuItems,
   }) {
     throw UnimplementedError();
   }

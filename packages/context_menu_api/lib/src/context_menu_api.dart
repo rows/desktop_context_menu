@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/widgets.dart';
 
 /// The type of the context menu item.
 ///
@@ -9,34 +9,73 @@ enum _ContextMenuItemType {
   separator,
 }
 
-/// A class that represents each menu item of the context menu.
-///
-/// [ContextMenuItem.separator] is to create a divider between menu items.
-class ContextMenuItem {
+/// A class that represents each item of the context menu.
+abstract class ContextMenuItemBase {
+  const ContextMenuItemBase();
+
+  Map<String, dynamic> toJson();
+}
+
+/// A class that represents each standard menu item of the context menu.
+class ContextMenuItem extends ContextMenuItemBase {
   /// The title of the context menu item.
   final String? title;
 
   /// Callback invoked when a menu item is tapped.
   final VoidCallback? onTap;
 
-  final _ContextMenuItemType _type;
+  /// The shortcut that appears on the right of a menu item.
+  final SingleActivator? shortcut;
 
   const ContextMenuItem({
     required this.title,
     this.onTap,
-  }) : _type = _ContextMenuItemType.standard;
+    this.shortcut,
+  });
 
-  /// Creates a separator between menu items.
-  const ContextMenuItem.separator()
-      : title = null,
-        onTap = null,
-        _type = _ContextMenuItemType.separator;
-
+  @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'title': title,
       'enabled': onTap != null,
-      'type': _type.name,
+      'shortcut': shortcut?.toJson(),
+      'type': _ContextMenuItemType.standard.name,
+    };
+  }
+}
+
+/// A class that represents a separator between menu items in the context menu.
+class ContextMenuItemSeparator extends ContextMenuItemBase {
+  const ContextMenuItemSeparator();
+
+  @override
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'type': _ContextMenuItemType.separator.name,
+    };
+  }
+}
+
+extension on SingleActivator {
+  /// Map the [SingleActivator] info to json to pass it through
+  /// the platform communication channel.
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'alt': alt,
+      'control': control,
+      'command': meta,
+      'shift': shift,
+
+      // In MacOS, a menu is a `NSMenu`. Each item of it is a `NSMenuItem`.
+      //
+      // When instantiating a `NSMenuItem`, we define a shortcut key with
+      // the property `keyEquivalent`. This property takes a character that
+      // corresponds to the key triggered in the keyboard. In case this
+      // property is defined with an upper case letter, it will automatically
+      // add a `SHIFT` modifier to the shortcut. To prevent that, we convert
+      // the `keyLabel` to lower case and decide to use `SHIFT` or not with the
+      // value of [SingleActivator.shift].
+      'key': trigger.keyLabel.toLowerCase(),
     };
   }
 }
@@ -47,8 +86,8 @@ abstract class ContextMenuApi {
   static ContextMenuApi instance = _UnsupportedPlatformContextMenuApi();
 
   /// Shows the context menu with the given [menuItems] at the pointer position.
-  Future<ContextMenuItem?> showContextMenu({
-    required Iterable<ContextMenuItem> menuItems,
+  Future<ContextMenuItemBase?> showContextMenu({
+    required Iterable<ContextMenuItemBase> menuItems,
   });
 }
 
@@ -56,8 +95,8 @@ abstract class ContextMenuApi {
 /// platforms.
 class _UnsupportedPlatformContextMenuApi extends ContextMenuApi {
   @override
-  Future<ContextMenuItem?> showContextMenu({
-    required Iterable<ContextMenuItem> menuItems,
+  Future<ContextMenuItemBase?> showContextMenu({
+    required Iterable<ContextMenuItemBase> menuItems,
   }) {
     throw UnimplementedError(
       'Context menu plugin not implemented in this platform.',
