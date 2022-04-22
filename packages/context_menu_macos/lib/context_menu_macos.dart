@@ -8,20 +8,4 @@ class ContextMenuMacos extends ContextMenuApi {
   static void registerWith() {
     ContextMenuApi.instance = ContextMenuMacos();
   }
-
-  @override
-  Future<ContextMenuItemBase?> showContextMenu({
-    required Iterable<ContextMenuItemBase> menuItems,
-  }) async {
-    final selectedItemId = await _channel.invokeMethod<int?>(
-      'showContextMenu',
-      menuItems.map((menuItem) => menuItem.toJson()).toList(),
-    );
-
-    if (selectedItemId == null) {
-      return null;
-    }
-
-    return menuItems.elementAt(selectedItemId);
-  }
 }

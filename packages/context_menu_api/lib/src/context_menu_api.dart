@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 /// The type of the context menu item.
@@ -92,12 +93,26 @@ abstract class ContextMenuApi {
   /// Shows the context menu with the given [menuItems] at the pointer position.
   Future<ContextMenuItemBase?> showContextMenu({
     required Iterable<ContextMenuItemBase> menuItems,
-  });
+  }) async {
+    final selectedItemId = await channel.invokeMethod<int?>(
+      'showContextMenu',
+      menuItems.map((menuItem) => menuItem.toJson()).toList(),
+    );
+
+    if (selectedItemId == null) {
+      return null;
+    }
+
+    return menuItems.elementAt(selectedItemId);
+  }
 }
 
 /// Empty context menu implementation that throws an exception for unsupported
 /// platforms.
 class _UnsupportedPlatformContextMenuApi extends ContextMenuApi {
+  @override
+  MethodChannel get channel => throw UnimplementedError();
+
   @override
   Future<ContextMenuItemBase?> showContextMenu({
     required Iterable<ContextMenuItemBase> menuItems,

@@ -9,7 +9,7 @@ void main() {
 
   final menuItems = [
     ContextMenuItem(title: 'Item 1', onTap: () {}),
-    const ContextMenuItem.separator(),
+    const ContextMenuItemSeparator(),
     const ContextMenuItem(title: 'Disabled item'),
   ];
 
@@ -24,9 +24,16 @@ void main() {
         menuItems: menuItems,
       );
 
-      expect(selectedItem, isNotNull);
-      expect(selectedItem!.title, isNotNull);
-      expect(selectedItem.onTap, isNotNull);
+      final contextMenuItem = selectedItem! as ContextMenuItem;
+
+      expect(contextMenuItem.title, 'Item 1');
+      expect(contextMenuItem.onTap, isNotNull);
+      expect(contextMenuItem.toJson(), {
+        'title': 'Item 1',
+        'enabled': true,
+        'shortcut': null,
+        'type': 'standard',
+      });
     });
 
     test('separator', () async {
@@ -35,9 +42,11 @@ void main() {
         menuItems: menuItems,
       );
 
-      expect(selectedItem, isNotNull);
-      expect(selectedItem!.title, isNull);
-      expect(selectedItem.onTap, isNull);
+      final contextMenuItem = selectedItem! as ContextMenuItemSeparator;
+
+      expect(contextMenuItem.toJson(), {
+        'type': 'separator',
+      });
     });
 
     test('disabled', () async {
@@ -46,9 +55,16 @@ void main() {
         menuItems: menuItems,
       );
 
-      expect(selectedItem, isNotNull);
-      expect(selectedItem!.title, isNotNull);
-      expect(selectedItem.onTap, isNull);
+      final contextMenuItem = selectedItem! as ContextMenuItem;
+
+      expect(contextMenuItem.title, 'Disabled item');
+      expect(contextMenuItem.onTap, isNull);
+      expect(contextMenuItem.toJson(), {
+        'title': 'Disabled item',
+        'enabled': false,
+        'shortcut': null,
+        'type': 'standard',
+      });
     });
   });
 }
@@ -56,9 +72,9 @@ void main() {
 class _ContextMenuWindowsTester {
   const _ContextMenuWindowsTester();
 
-  Future<ContextMenuItem?> mockSelectedItem({
+  Future<ContextMenuItemBase?> mockSelectedItem({
     required int selectedItemId,
-    required List<ContextMenuItem> menuItems,
+    required List<ContextMenuItemBase> menuItems,
   }) async {
     final contextMenuWindows = ContextMenuWindows();
 

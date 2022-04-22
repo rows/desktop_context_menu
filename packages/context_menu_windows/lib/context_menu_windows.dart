@@ -8,11 +8,4 @@ class ContextMenuWindows extends ContextMenuApi {
   static void registerWith() {
     ContextMenuApi.instance = ContextMenuWindows();
   }
-
-  @override
-  Future<ContextMenuItemBase?> showContextMenu({
-    required Iterable<ContextMenuItemBase> menuItems,
-  }) {
-    throw UnimplementedError();
-  }
 }
