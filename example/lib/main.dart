@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ContextMenuItem(
           title: 'Control shortcut',
           shortcut: const SingleActivator(
-            LogicalKeyboardKey.keyD,
+            LogicalKeyboardKey.keyJ,
             control: true,
           ),
           onTap: () {},
