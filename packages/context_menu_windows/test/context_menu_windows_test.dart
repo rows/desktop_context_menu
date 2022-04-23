@@ -1,5 +1,7 @@
 import 'package:context_menu_api/context_menu_api.dart';
 import 'package:context_menu_windows/context_menu_windows.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -11,6 +13,14 @@ void main() {
     ContextMenuItem(title: 'Item 1', onTap: () {}),
     const ContextMenuItemSeparator(),
     const ContextMenuItem(title: 'Disabled item'),
+    ContextMenuItem(
+      title: 'Copy',
+      shortcut: const SingleActivator(
+        LogicalKeyboardKey.keyC,
+        meta: true,
+      ),
+      onTap: () {},
+    ),
   ];
 
   setUpAll(() {
@@ -31,7 +41,7 @@ void main() {
       expect(contextMenuItem.toJson(), {
         'title': 'Item 1',
         'enabled': true,
-        'shortcut': null,
+        'shortcut': <String, dynamic>{},
         'type': 'standard',
       });
     });
@@ -62,7 +72,31 @@ void main() {
       expect(contextMenuItem.toJson(), {
         'title': 'Disabled item',
         'enabled': false,
-        'shortcut': null,
+        'shortcut': <String, dynamic>{},
+        'type': 'standard',
+      });
+    });
+
+    test('shortcut', () async {
+      final selectedItem = await contextMenuWindowsTester.mockSelectedItem(
+        selectedItemId: 3,
+        menuItems: menuItems,
+      );
+
+      final contextMenuItem = selectedItem! as ContextMenuItem;
+
+      expect(contextMenuItem.title, 'Copy');
+      expect(contextMenuItem.onTap, isNotNull);
+      expect(contextMenuItem.toJson(), {
+        'title': 'Copy',
+        'enabled': true,
+        'shortcut': {
+          'alt': false,
+          'control': false,
+          'command': true,
+          'shift': false,
+          'key': 'C',
+        },
         'type': 'standard',
       });
     });
