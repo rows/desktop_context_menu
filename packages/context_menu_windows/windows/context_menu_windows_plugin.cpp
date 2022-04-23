@@ -17,6 +17,41 @@
 
 namespace {
 
+std::map<std::string, std::string> modifiers = {
+        {"control", "Ctrl"},
+        {"shift", "Shift"},
+        {"alt", "Alt"}
+};
+
+std::string GetTitleWithShortcut(flutter::EncodableMap& shortcut, std::string& title) {
+  std::string result = "";
+
+  for (auto const& [key, value] : modifiers)
+  {
+    if (shortcut.count(flutter::EncodableValue(key))) {
+      auto isEnabled = std::get<bool>(shortcut[flutter::EncodableValue(key)]);
+
+      if (!isEnabled) {
+        continue;
+      }
+
+      result += value + "+";
+    }
+  }
+
+  if (shortcut.count(flutter::EncodableValue("key"))) {
+    auto trigger = std::get<std::string>(shortcut[flutter::EncodableValue("key")]);
+
+    if (result.empty()) {
+      return "&" + title + "\t" + trigger;
+    }
+
+    return "&" + title + "\t" + result + trigger;
+  }
+
+  return result;
+}
+
 class ContextMenuWindowsPlugin : public flutter::Plugin {
  public:
   static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
@@ -92,9 +127,14 @@ void ContextMenuWindowsPlugin::HandleMethodCall(
       } else {
         auto title = Encoding::Utf8ToWide(std::get<std::string>(item[flutter::EncodableValue("title")]));
         auto enabled = std::get<bool>(item[flutter::EncodableValue("enabled")]);
+        auto shortcut = std::get<flutter::EncodableMap>(item[flutter::EncodableValue("shortcut")]);
+
+        std::string titleWithShortcut = GetTitleWithShortcut(shortcut, title);
+
+        std::string menuItemTitle = titleWithShortcut.empty() ? title : titleWithShortcut;
 
         // AppendMenuW takes a wchar_t[]. Since title is char[], a conversion to wchar_t[] is done.
-        std::wstring widestr = std::wstring(title.begin(), title.end());
+        std::wstring widestr = std::wstring(menuItemTitle.begin(), menuItemTitle.end());
         const wchar_t* widecstr = widestr.c_str();
 
         AppendMenuW(contextMenu, enabled ? MF_STRING : MF_GRAYED, i, widecstr);

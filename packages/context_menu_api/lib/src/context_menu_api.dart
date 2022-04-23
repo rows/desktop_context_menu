@@ -39,7 +39,7 @@ class ContextMenuItem extends ContextMenuItemBase {
     return <String, dynamic>{
       'title': title,
       'enabled': onTap != null,
-      'shortcut': shortcut?.toJson(),
+      'shortcut': shortcut?.toJson() ?? <String, dynamic>{},
       'type': _ContextMenuItemType.standard.name,
     };
   }
@@ -66,17 +66,7 @@ extension on SingleActivator {
       'control': control,
       'command': meta,
       'shift': shift,
-
-      // In MacOS, a menu is a `NSMenu`. Each item of it is a `NSMenuItem`.
-      //
-      // When instantiating a `NSMenuItem`, we define a shortcut key with
-      // the property `keyEquivalent`. This property takes a character that
-      // corresponds to the key triggered in the keyboard. In case this
-      // property is defined with an upper case letter, it will automatically
-      // add a `SHIFT` modifier to the shortcut. To prevent that, we convert
-      // the `keyLabel` to lower case and decide to use `SHIFT` or not with the
-      // value of [SingleActivator.shift].
-      'key': trigger.keyLabel.toLowerCase(),
+      'key': trigger.keyLabel,
     };
   }
 }
