@@ -116,7 +116,7 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
           // In case this property is defined with an upper case letter, it will automatically
           // add a `SHIFT` modifier to the shortcut. To prevent that, we convert
           // the `keyLabel` to lower case and decide to use `SHIFT` or not with the
-          // value of `shortcut[shortcutModifier.shift]`.
+          // value of `shortcut[shortcutModifier.shift.rawValue]`.
           keyEquivalent: key?.lowercased() ?? ""
         )
 

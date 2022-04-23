@@ -17,35 +17,37 @@
 
 namespace {
 
+/// Defines all the modifiers of a shortcut.
 std::map<std::string, std::string> modifiers = {
         {"control", "Ctrl"},
         {"shift", "Shift"},
         {"alt", "Alt"}
 };
 
+/// Gets the menu item title with the shortcut on the right.
 std::string GetTitleWithShortcut(flutter::EncodableMap& shortcut, std::string& title) {
   std::string result = "";
 
+  // Iterates through all modifiers, check if they exist and if they do, append them to
+  // the `result` string.
   for (auto const& [key, value] : modifiers)
   {
     if (shortcut.count(flutter::EncodableValue(key))) {
       auto isEnabled = std::get<bool>(shortcut[flutter::EncodableValue(key)]);
 
-      if (!isEnabled) {
-        continue;
+      if (isEnabled) {
+        result += value + "+";
       }
-
-      result += value + "+";
     }
   }
 
   if (shortcut.count(flutter::EncodableValue("key"))) {
+    // Gets the shortcut key label.
     auto trigger = std::get<std::string>(shortcut[flutter::EncodableValue("key")]);
 
-    if (result.empty()) {
-      return "&" + title + "\t" + trigger;
-    }
-
+    // To define a shortcut for a menu item in Win32 API, please read the paragraph 
+    // of the following link to better understand what's going on in the return:
+    // - https://docs.microsoft.com/en-us/windows/win32/menurc/about-menus#menu-shortcut-keys
     return "&" + title + "\t" + result + trigger;
   }
 
@@ -129,8 +131,11 @@ void ContextMenuWindowsPlugin::HandleMethodCall(
         auto enabled = std::get<bool>(item[flutter::EncodableValue("enabled")]);
         auto shortcut = std::get<flutter::EncodableMap>(item[flutter::EncodableValue("shortcut")]);
 
+        // Gets the menu item title with the shortcut on the right.
         std::string titleWithShortcut = GetTitleWithShortcut(shortcut, title);
 
+        // If there's no shortcut, use the default title of the menu item, otherwise, show
+        // the default title with the shortcut on the right.
         std::string menuItemTitle = titleWithShortcut.empty() ? title : titleWithShortcut;
 
         // AppendMenuW takes a wchar_t[]. Since title is char[], a conversion to wchar_t[] is done.
