@@ -15,6 +15,10 @@ A package that spawns a context menu at the mouse coordinates.
 
 Available for Windows and MacOS.
 
+![image](https://user-images.githubusercontent.com/36768712/165264388-128ce062-ce43-499e-9a15-4709f97f609e.png)
+
+<img width="801" alt="macos" src="https://user-images.githubusercontent.com/36768712/165264223-44b61a41-3401-427f-b687-2d1f333d0cdc.png">
+
 ## Features
 
 - Native like context menu.
