@@ -47,16 +47,7 @@ void main() {
     });
 
     test('separator', () async {
-      final selectedItem = await contextMenuWindowsTester.mockSelectedItem(
-        selectedItemId: 1,
-        menuItems: menuItems,
-      );
-
-      final contextMenuItem = selectedItem! as ContextMenuItemSeparator;
-
-      expect(contextMenuItem.toJson(), {
-        'type': 'separator',
-      });
+      expect(const ContextMenuItemSeparator().toJson(), {'type': 'separator'});
     });
 
     test('disabled', () async {
