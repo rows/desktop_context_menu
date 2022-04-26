@@ -1,4 +1,5 @@
 #include "include/context_menu_windows/context_menu_windows_plugin.h"
+#include "include/context_menu_windows/encoding.h"
 
 // This must be included before many other Windows headers.
 #include <windows.h>
@@ -58,7 +59,7 @@ void ContextMenuWindowsPlugin::HandleMethodCall(
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   if (method_call.method_name().compare("showContextMenu") == 0) {
     // Gets the flutter app window.
-    HWND activeWindow = GetActiveWindow();
+    const auto activeWindow = GetActiveWindow();
 
     POINT cursorPosition;
 
@@ -66,25 +67,30 @@ void ContextMenuWindowsPlugin::HandleMethodCall(
     ::GetCursorPos(&cursorPosition);
 
     // Creates the context menu.
-    HMENU contextMenu = CreatePopupMenu();
+    const auto contextMenu = CreatePopupMenu();
 
     // Gets the menu items of the context menu that have been passed through the arguments parameter.
-    auto items = std::get<flutter::EncodableList>(*method_call.arguments());
+    const auto* items = std::get_if<flutter::EncodableList>(method_call.arguments());
+
+    if (!items) {
+      result->Error("Missing required type parameter", "Expected list of items");
+      return;
+    }
 
     // Unfortunately, `TrackPopupMenu` returns `0` instead of `-1` when no item is selected. Because of that, 
     // the id of the first element of `items` starts at `1` instead of `0`.
     //
     // See: 
     //  - https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-trackpopupmenu#return-value
-    for (int i = 1; i <= items.size(); i++) {
-      auto item = std::get<flutter::EncodableMap>(items[i - 1]);
+    for (int i = 1; i <= (*items).size(); i++) {
+      auto item = std::get<flutter::EncodableMap>((*items)[i - 1]);
       auto type = std::get<std::string>(item[flutter::EncodableValue("type")]);
 
       // No need to get and set the title of the menu item if it's a separator.
       if (type.compare("separator") == 0) {
         AppendMenuW(contextMenu, MF_SEPARATOR, i, NULL);
       } else {
-        auto title = std::get<std::string>(item[flutter::EncodableValue("title")]);
+        auto title = Encoding::Utf8ToWide(std::get<std::string>(item[flutter::EncodableValue("title")]));
         auto enabled = std::get<bool>(item[flutter::EncodableValue("enabled")]);
 
         // AppendMenuW takes a wchar_t[]. Since title is char[], a conversion to wchar_t[] is done.
@@ -97,10 +103,10 @@ void ContextMenuWindowsPlugin::HandleMethodCall(
 
     SetForegroundWindow(activeWindow);
 
-    int selectedItemId = TrackPopupMenu(contextMenu, TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RETURNCMD, cursorPosition.x, cursorPosition.y, 0, activeWindow, NULL);
+    int selectedItemId = TrackPopupMenu(contextMenu, TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RETURNCMD, cursorPosition.x, cursorPosition.y, 0, activeWindow, nullptr);
 
     // If no item is selected don't pass any value.
-    if (selectedItemId == 0) {
+    if (0 == selectedItemId) {
       result->Success();
     } else {
       result->Success(flutter::EncodableValue(selectedItemId - 1));
