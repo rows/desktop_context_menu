@@ -138,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-    if (selectedItem == null || selectedItem is! ContextMenuItem) {
+    if (selectedItem == null) {
       return null;
     }
 

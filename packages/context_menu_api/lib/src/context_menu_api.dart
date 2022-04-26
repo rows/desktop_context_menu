@@ -81,7 +81,7 @@ abstract class ContextMenuApi {
   MethodChannel get channel;
 
   /// Shows the context menu with the given [menuItems] at the pointer position.
-  Future<ContextMenuItemBase?> showContextMenu({
+  Future<ContextMenuItem?> showContextMenu({
     required Iterable<ContextMenuItemBase> menuItems,
   }) async {
     final selectedItemId = await channel.invokeMethod<int?>(
@@ -93,7 +93,7 @@ abstract class ContextMenuApi {
       return null;
     }
 
-    return menuItems.elementAt(selectedItemId);
+    return menuItems.elementAt(selectedItemId) as ContextMenuItem;
   }
 }
 
@@ -104,7 +104,7 @@ class _UnsupportedPlatformContextMenuApi extends ContextMenuApi {
   MethodChannel get channel => throw UnimplementedError();
 
   @override
-  Future<ContextMenuItemBase?> showContextMenu({
+  Future<ContextMenuItem?> showContextMenu({
     required Iterable<ContextMenuItemBase> menuItems,
   }) {
     throw UnimplementedError(
