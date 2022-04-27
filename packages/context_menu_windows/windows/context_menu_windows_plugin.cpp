@@ -82,8 +82,8 @@ void ContextMenuWindowsPlugin::HandleMethodCall(
     //
     // See: 
     //  - https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-trackpopupmenu#return-value
-    for (int i = 1; i <= (*items).size(); i++) {
-      auto item = std::get<flutter::EncodableMap>((*items)[i - 1]);
+    for (int i = 1; i <= items->size(); i++) {
+      auto item = std::get<flutter::EncodableMap>(items->at(i - 1));
       auto type = std::get<std::string>(item[flutter::EncodableValue("type")]);
 
       // No need to get and set the title of the menu item if it's a separator.
