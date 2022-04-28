@@ -46,8 +46,8 @@ void main() {
       });
     });
 
-    test('separator', () async {
-      expect(const ContextMenuItemSeparator().toJson(), {'type': 'separator'});
+    test('separator', () {
+      expect(menuItems.elementAt(1).toJson(), {'type': 'separator'});
     });
 
     test('disabled', () async {

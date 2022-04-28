@@ -127,16 +127,16 @@ void ContextMenuWindowsPlugin::HandleMethodCall(
       if (type.compare("separator") == 0) {
         AppendMenuW(contextMenu, MF_SEPARATOR, i, NULL);
       } else {
-        auto title = Encoding::Utf8ToWide(std::get<std::string>(item[flutter::EncodableValue("title")]));
+        auto title = std::get<std::string>(item[flutter::EncodableValue("title")]);
         auto enabled = std::get<bool>(item[flutter::EncodableValue("enabled")]);
         auto shortcut = std::get<flutter::EncodableMap>(item[flutter::EncodableValue("shortcut")]);
 
         // Gets the menu item title with the shortcut on the right.
-        std::string titleWithShortcut = GetTitleWithShortcut(shortcut, title);
+        auto titleWithShortcut = GetTitleWithShortcut(shortcut, title);
 
         // If there's no shortcut, use the default title of the menu item, otherwise, show
         // the default title with the shortcut on the right.
-        std::string menuItemTitle = titleWithShortcut.empty() ? title : titleWithShortcut;
+        auto menuItemTitle = Encoding::Utf8ToWide(titleWithShortcut.empty() ? title : titleWithShortcut);
 
         // AppendMenuW takes a wchar_t[]. Since title is char[], a conversion to wchar_t[] is done.
         std::wstring widestr = std::wstring(menuItemTitle.begin(), menuItemTitle.end());
