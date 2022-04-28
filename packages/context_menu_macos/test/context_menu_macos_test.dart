@@ -108,13 +108,11 @@ class _ContextMenuMacosTester {
     required int selectedItemId,
     required List<ContextMenuItemBase> menuItems,
   }) async {
-    const channel = MethodChannel('context_menu_macos');
+    final contextMenuMacos = ContextMenuMacos();
 
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    contextMenuMacos.channel.setMockMethodCallHandler((methodCall) async {
       return selectedItemId;
     });
-
-    final contextMenuMacos = ContextMenuMacos();
 
     return contextMenuMacos.showContextMenu(menuItems: menuItems);
   }
