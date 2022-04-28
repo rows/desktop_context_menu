@@ -39,7 +39,7 @@ class ContextMenuItem extends ContextMenuItemBase {
     return <String, dynamic>{
       'title': title,
       'enabled': onTap != null,
-      'shortcut': shortcut?.toJson() ?? <String, dynamic>{},
+      'shortcut': shortcut?.toJson(),
       'type': _ContextMenuItemType.standard.name,
     };
   }

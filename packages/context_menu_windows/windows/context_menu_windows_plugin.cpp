@@ -25,19 +25,26 @@ std::map<std::string, std::string> modifiers = {
 };
 
 /// Gets the menu item title with the shortcut on the right.
-std::string GetTitleWithShortcut(flutter::EncodableMap& shortcut, std::string& title) {
+std::string GetTitleWithShortcut(flutter::EncodableMap shortcut, std::string title) {
   std::string result = "";
 
   // Iterates through all modifiers, check if they exist and if they do, append them to
   // the `result` string.
-  for (auto const& [key, value] : modifiers)
-  {
-    if (shortcut.count(flutter::EncodableValue(key))) {
-      auto isEnabled = std::get<bool>(shortcut[flutter::EncodableValue(key)]);
+  for (flutter::EncodableMap::iterator it = shortcut.begin(); it != shortcut.end(); ++it) {
+    // `shortcut` map includes also the `key` that was pressed on the keyboard apart from the modifiers.
+    //
+    // It is necessary to skip it to get only the modifiers.
+    auto key = std::get<std::string>(flutter::EncodableValue(it->first));
 
-      if (isEnabled) {
-        result += value + "+";
-      }
+    if (key == "key") {
+      continue;
+    }
+
+    auto enabled = std::get<bool>(flutter::EncodableValue(it->second));
+
+    // If the current modifier is enabled, add the corresponding modifier label to `result`.
+    if (enabled) {
+      result += modifiers[key] + "+";
     }
   }
 
@@ -121,28 +128,49 @@ void ContextMenuWindowsPlugin::HandleMethodCall(
     //  - https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-trackpopupmenu#return-value
     for (int i = 1; i <= items->size(); i++) {
       auto item = std::get<flutter::EncodableMap>(items->at(i - 1));
-      auto type = std::get<std::string>(item[flutter::EncodableValue("type")]);
+      
+      const auto* type = std::get_if<std::string>(&item[flutter::EncodableValue("type")]);
+
+      if (!type) {
+        result->Error("Missing required type parameter", "Expected type");
+        return;
+      }
 
       // No need to get and set the title of the menu item if it's a separator.
-      if (type.compare("separator") == 0) {
+      if (type->compare("separator") == 0) {
         AppendMenuW(contextMenu, MF_SEPARATOR, i, NULL);
       } else {
-        auto title = std::get<std::string>(item[flutter::EncodableValue("title")]);
-        auto enabled = std::get<bool>(item[flutter::EncodableValue("enabled")]);
-        auto shortcut = std::get<flutter::EncodableMap>(item[flutter::EncodableValue("shortcut")]);
+        const auto* title = std::get_if<std::string>(&item[flutter::EncodableValue("title")]);
 
-        // Gets the menu item title with the shortcut on the right.
-        auto titleWithShortcut = GetTitleWithShortcut(shortcut, title);
+        if (!title) {
+          result->Error("Missing required type parameter", "Expected title");
+          return;
+        }
+
+        const auto* enabled = std::get_if<bool>(&item[flutter::EncodableValue("enabled")]);
+
+        if (!enabled) {
+          result->Error("Missing required type parameter", "Expected enabled");
+          return;
+        }
+
+        std::string menuItemTitle = "";
+
+        const auto* shortcut = std::get_if<flutter::EncodableMap>(&item[flutter::EncodableValue("shortcut")]);
 
         // If there's no shortcut, use the default title of the menu item, otherwise, show
         // the default title with the shortcut on the right.
-        auto menuItemTitle = Encoding::Utf8ToWide(titleWithShortcut.empty() ? title : titleWithShortcut);
+        if (!shortcut) {
+          menuItemTitle = *title;
+        } else {
+          menuItemTitle = GetTitleWithShortcut(*shortcut, *title);
+        }
 
-        // AppendMenuW takes a wchar_t[]. Since title is char[], a conversion to wchar_t[] is done.
-        std::wstring widestr = std::wstring(menuItemTitle.begin(), menuItemTitle.end());
+        // Since AppendMenuW takes a wchar_t[], after converting utf8 to wstring, a conversion to wchar_t[] is done.
+        std::wstring widestr = Encoding::Utf8ToWide(menuItemTitle);
         const wchar_t* widecstr = widestr.c_str();
 
-        AppendMenuW(contextMenu, enabled ? MF_STRING : MF_GRAYED, i, widecstr);
+        AppendMenuW(contextMenu, *enabled ? MF_STRING : MF_GRAYED, i, widecstr);
       }
     }
 
