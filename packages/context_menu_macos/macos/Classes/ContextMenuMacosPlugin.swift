@@ -111,9 +111,13 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
 
         menuItem = NSMenuItem(
           title: item["title"] as! String,
-          action: #selector(emitSelectedItemId(_:)),
-          // `keyEquivalent` can't be null.
-          keyEquivalent: key ?? ""
+          action: #selector(emitSelectedItemId(_:)),   
+          // `keyEquivalent` takes a character that corresponds to the key triggered in the keyboard. 
+          // In case this property is defined with an upper case letter, it will automatically
+          // add a `SHIFT` modifier to the shortcut. To prevent that, we convert
+          // the `key` to lower case and decide to use `SHIFT` or not with the
+          // value of `shortcut[shortcutModifier.shift.rawValue]`.
+          keyEquivalent: key?.lowercased() ?? ""
         )
 
         let modifiers = getShortcutModifiers(shortcut)

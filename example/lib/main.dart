@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:context_menu_api/context_menu_api.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -68,25 +70,28 @@ class _MyHomePageState extends State<MyHomePage> {
         ContextMenuItem(
           title: 'Copy',
           onTap: () {},
-          shortcut: const SingleActivator(
+          shortcut: SingleActivator(
             LogicalKeyboardKey.keyC,
-            meta: true,
+            meta: Platform.isMacOS,
+            control: Platform.isWindows,
           ),
         ),
         ContextMenuItem(
           title: 'Paste',
           onTap: () {},
-          shortcut: const SingleActivator(
+          shortcut: SingleActivator(
             LogicalKeyboardKey.keyV,
-            meta: true,
+            meta: Platform.isMacOS,
+            control: Platform.isWindows,
           ),
         ),
         ContextMenuItem(
           title: 'Paste as values',
           onTap: () {},
-          shortcut: const SingleActivator(
+          shortcut: SingleActivator(
             LogicalKeyboardKey.keyV,
-            meta: true,
+            meta: Platform.isMacOS,
+            control: Platform.isWindows,
             shift: true,
           ),
         ),
@@ -133,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-    if (selectedItem == null || selectedItem is! ContextMenuItem) {
+    if (selectedItem == null) {
       return null;
     }
 

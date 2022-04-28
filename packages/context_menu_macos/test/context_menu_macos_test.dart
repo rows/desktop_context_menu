@@ -41,20 +41,13 @@ void main() {
       expect(contextMenuItem.toJson(), {
         'title': 'Item 1',
         'enabled': true,
-        'shortcut': null,
+        'shortcut': <String, dynamic>{},
         'type': 'standard',
       });
     });
 
-    test('separator', () async {
-      final selectedItem = await contextMenuMacosTester.mockSelectedItem(
-        selectedItemId: 1,
-        menuItems: menuItems,
-      );
-
-      final contextMenuItem = selectedItem! as ContextMenuItemSeparator;
-
-      expect(contextMenuItem.toJson(), {'type': 'separator'});
+    test('separator', () {
+      expect(menuItems.elementAt(1).toJson(), {'type': 'separator'});
     });
 
     test('disabled', () async {
@@ -70,7 +63,7 @@ void main() {
       expect(contextMenuItem.toJson(), {
         'title': 'Disabled item',
         'enabled': false,
-        'shortcut': null,
+        'shortcut': <String, dynamic>{},
         'type': 'standard',
       });
     });
@@ -93,7 +86,7 @@ void main() {
           'control': false,
           'command': true,
           'shift': false,
-          'key': 'c',
+          'key': 'C',
         },
         'type': 'standard',
       });

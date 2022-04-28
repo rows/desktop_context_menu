@@ -66,17 +66,7 @@ extension on SingleActivator {
       'control': control,
       'command': meta,
       'shift': shift,
-
-      // In MacOS, a menu is a `NSMenu`. Each item of it is a `NSMenuItem`.
-      //
-      // When instantiating a `NSMenuItem`, we define a shortcut key with
-      // the property `keyEquivalent`. This property takes a character that
-      // corresponds to the key triggered in the keyboard. In case this
-      // property is defined with an upper case letter, it will automatically
-      // add a `SHIFT` modifier to the shortcut. To prevent that, we convert
-      // the `keyLabel` to lower case and decide to use `SHIFT` or not with the
-      // value of [SingleActivator.shift].
-      'key': trigger.keyLabel.toLowerCase(),
+      'key': trigger.keyLabel,
     };
   }
 }
@@ -91,7 +81,7 @@ abstract class ContextMenuApi {
   MethodChannel get channel;
 
   /// Shows the context menu with the given [menuItems] at the pointer position.
-  Future<ContextMenuItemBase?> showContextMenu({
+  Future<ContextMenuItem?> showContextMenu({
     required Iterable<ContextMenuItemBase> menuItems,
   }) async {
     final selectedItemId = await channel.invokeMethod<int?>(
@@ -103,7 +93,7 @@ abstract class ContextMenuApi {
       return null;
     }
 
-    return menuItems.elementAt(selectedItemId);
+    return menuItems.elementAt(selectedItemId) as ContextMenuItem;
   }
 }
 
@@ -114,7 +104,7 @@ class _UnsupportedPlatformContextMenuApi extends ContextMenuApi {
   MethodChannel get channel => throw UnimplementedError();
 
   @override
-  Future<ContextMenuItemBase?> showContextMenu({
+  Future<ContextMenuItem?> showContextMenu({
     required Iterable<ContextMenuItemBase> menuItems,
   }) {
     throw UnimplementedError(
