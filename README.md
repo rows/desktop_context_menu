@@ -18,7 +18,7 @@
 
 A package that spawns a context menu at the mouse coordinates.
 
-Available for Windows and MacOS.
+Available for MacOS and Windows.
 
 | MacOS  |  Windows  |
 | ------------------- | ------------------- |
