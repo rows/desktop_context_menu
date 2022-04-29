@@ -46,8 +46,8 @@ class ContextMenuItem extends ContextMenuItemBase {
 }
 
 /// A class that represents a separator between menu items in the context menu.
-class ContextMenuItemSeparator extends ContextMenuItemBase {
-  const ContextMenuItemSeparator();
+class ContextMenuSeparator extends ContextMenuItemBase {
+  const ContextMenuSeparator();
 
   @override
   Map<String, dynamic> toJson() {

@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
             shift: true,
           ),
         ),
-        const ContextMenuItemSeparator(),
+        const ContextMenuSeparator(),
         ContextMenuItem(
           title: 'Item number two',
           onTap: () {},
@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
             shift: true,
           ),
         ),
-        const ContextMenuItemSeparator(),
+        const ContextMenuSeparator(),
         ContextMenuItem(
           title: 'Zoom in',
           shortcut: const SingleActivator(
@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           onTap: () {},
         ),
-        const ContextMenuItemSeparator(),
+        const ContextMenuSeparator(),
         ContextMenuItem(
           title: 'Control shortcut',
           shortcut: const SingleActivator(

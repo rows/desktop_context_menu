@@ -1,39 +1,95 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+<p align="center">
+  <a href="https://rows.com">
+  <br />
+  <img src="https://rows.com/media/logo.svg" alt="Rows" width="150"/>
+  <br />
+    <sub><strong>Spreadsheet with superpowers!</strong></sub>
+  <br />
+  <br />
+  </a>
+</p>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+<p align="center">
+  <a title="Pub" href="https://pub.dev/packages/context_menu_plugin" ><img src="https://img.shields.io/pub/v/context_menu_plugin.svg?style=popout" /></a>
+  <a title="Rows lint" href="https://pub.dev/packages/rows_lint" ><img src="https://img.shields.io/badge/Styled%20by-Rows-754F6C?style=popout" /></a>
+</p>
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+# Context Menu Plugin
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A package that spawns a context menu at the mouse coordinates.
+
+Available for MacOS and Windows.
+
+| MacOS  |  Windows  |
+| ------------------- | ------------------- |
+| <img width="299" alt="image" src="https://user-images.githubusercontent.com/36768712/165944808-d44c05b9-f968-4994-8fc7-b2c10f82cb7f.png"> |  ![image](https://user-images.githubusercontent.com/36768712/165944913-b40af592-5150-4a18-b65d-fbad854cab8f.png) |
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- Native context menu
+- Separators between menu items
+- Specify shortcuts for menu items
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+To invoke the context menu you can do the following:
 
 ```dart
-const like = 'sample';
+final selectedItem = await ContextMenuApi.instance.showContextMenu(menuItems: [...]);
 ```
 
-## Additional information
+In case an item is selected in the context menu, that item is returned. If no item is selected, `null` is returned.
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+A context menu item can be of type `ContextMenuItem` or `ContextMenuSeparator`. 
+
+To define a menu item of type `ContextMenuItem`, you can do the following:
+
+```dart
+...
+ContextMenuItem(
+  title: 'Menu item title',
+  onTap: () {
+    // do something...
+  },
+),
+...
+```
+
+If you do not set the `onTap` callback, the menu item will be disabled.
+
+To add a separator between menu items, you need to add a `ContextMenuSeparator` between `ContextMenuItem`s:
+
+```dart
+...
+menuItems: [
+  ContextMenuItem(
+    title: 'Menu item title',
+    onTap: () {
+      // do something...
+    },
+  ),
+  ContextMenuSeparator(),
+  ContextMenuItem(
+    title: 'Disabled menu item',
+  ),
+],
+...
+```
+
+To define a shortcut for a menu item, just specify the shortcut property of `ContextMenuItem` that takes a `SingleActivator`:
+
+```dart
+...
+ContextMenuItem(
+  title: 'Copy',
+  onTap: () {
+    // do something...
+  },
+  shortcut: SingleActivator(
+    LogicalKeyboardKey.keyC,
+    meta: Platform.isMacOS,
+    control: Platform.isWindows,
+  ),
+),
+...
+```
