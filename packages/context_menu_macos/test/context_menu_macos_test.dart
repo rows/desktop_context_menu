@@ -41,7 +41,7 @@ void main() {
       expect(contextMenuItem.toJson(), {
         'title': 'Item 1',
         'enabled': true,
-        'shortcut': <String, dynamic>{},
+        'shortcut': null,
         'type': 'standard',
       });
     });
@@ -63,7 +63,7 @@ void main() {
       expect(contextMenuItem.toJson(), {
         'title': 'Disabled item',
         'enabled': false,
-        'shortcut': <String, dynamic>{},
+        'shortcut': null,
         'type': 'standard',
       });
     });
