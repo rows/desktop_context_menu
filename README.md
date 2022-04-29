@@ -1,15 +1,20 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+<p align="center">
+  <a href="https://rows.com">
+  <br />
+  <img src="https://rows.com/media/logo.svg" alt="Rows" width="150"/>
+  <br />
+    <sub><strong>Spreadsheet with superpowers!</strong></sub>
+  <br />
+  <br />
+  </a>
+</p>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+<p align="center">
+  <a title="Pub" href="https://pub.dev/packages/automata" ><img src="https://img.shields.io/pub/v/automata.svg?style=popout" /></a>
+  <a title="Rows lint" href="https://pub.dev/packages/rows_lint" ><img src="https://img.shields.io/badge/Styled%20by-Rows-754F6C?style=popout" /></a>
+</p>
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+# Context Menu Plugin
 
 A package that spawns a context menu at the mouse coordinates.
 
