@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a title="Pub" href="https://pub.dev/packages/automata" ><img src="https://img.shields.io/pub/v/automata.svg?style=popout" /></a>
+  <a title="Pub" href="https://pub.dev/packages/context_menu_plugin" ><img src="https://img.shields.io/pub/v/context_menu_plugin.svg?style=popout" /></a>
   <a title="Rows lint" href="https://pub.dev/packages/rows_lint" ><img src="https://img.shields.io/badge/Styled%20by-Rows-754F6C?style=popout" /></a>
 </p>
 
@@ -20,9 +20,9 @@ A package that spawns a context menu at the mouse coordinates.
 
 Available for Windows and MacOS.
 
-![image](https://user-images.githubusercontent.com/36768712/165264388-128ce062-ce43-499e-9a15-4709f97f609e.png)
-
-<img width="801" alt="macos" src="https://user-images.githubusercontent.com/36768712/165264223-44b61a41-3401-427f-b687-2d1f333d0cdc.png">
+| MacOS  |  Windows  |
+| ------------------- | ------------------- |
+|  <img width="801" alt="macos" src="https://user-images.githubusercontent.com/36768712/165264223-44b61a41-3401-427f-b687-2d1f333d0cdc.png"> |  ![image](https://user-images.githubusercontent.com/36768712/165942569-2d122072-cd73-492c-91d1-738b09900c7e.png) |
 
 ## Features
 
