@@ -22,7 +22,7 @@ Available for Windows and MacOS.
 
 | MacOS  |  Windows  |
 | ------------------- | ------------------- |
-|  <img width="801" alt="macos" src="https://user-images.githubusercontent.com/36768712/165264223-44b61a41-3401-427f-b687-2d1f333d0cdc.png"> |  ![image](https://user-images.githubusercontent.com/36768712/165942569-2d122072-cd73-492c-91d1-738b09900c7e.png) |
+| ![macos](https://user-images.githubusercontent.com/36768712/165943290-989aed46-9742-4208-b253-3123249f4ff1.jpg) | ![image](https://user-images.githubusercontent.com/36768712/165943821-591d9813-4182-4397-894a-867d2c70e783.png) |
 
 ## Features
 
