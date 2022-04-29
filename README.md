@@ -26,9 +26,9 @@ Available for Windows and MacOS.
 
 ## Features
 
-- Native like context menu.
-- Separators between menu items.
-- Specify shortcuts for menu items.
+- Native context menu
+- Separators between menu items
+- Specify shortcuts for menu items
 
 ## Usage
 
@@ -40,9 +40,9 @@ final selectedItem = await ContextMenuApi.instance.showContextMenu(menuItems: [.
 
 In case an item is selected in the context menu, that item is returned. If no item is selected, `null` is returned.
 
-A context menu item can be of type `standard` or `separator`. 
+A context menu item can be of type `ContextMenuItem` or `ContextMenuSeparator`. 
 
-To define a menu item of type `standard`, you can do the following:
+To define a menu item of type `ContextMenuItem`, you can do the following:
 
 ```dart
 ...
@@ -57,7 +57,7 @@ ContextMenuItem(
 
 If you do not set the `onTap` callback, the menu item will be disabled.
 
-To add a separator between menu items, you need to add a `ContextMenuItemSeparator` between `ContextMenuItem`s:
+To add a separator between menu items, you need to add a `ContextMenuSeparator` between `ContextMenuItem`s:
 
 ```dart
 ...
@@ -68,7 +68,7 @@ menuItems: [
       // do something...
     },
   ),
-  ContextMenuItemSeparator(),
+  ContextMenuSeparator(),
   ContextMenuItem(
     title: 'Disabled menu item',
   ),
