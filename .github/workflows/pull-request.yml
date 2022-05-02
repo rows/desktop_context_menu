@@ -21,7 +21,7 @@ jobs:
         channel: 'stable'
 
     - name: Get dependencies
-      run: flutter pub get
+      run: sh/scripts/install.sh
 
     - name: Run formatter
       run: sh scripts/format.sh
