@@ -4,7 +4,7 @@ packages:
   - "**"
 
 scripts:
-  format: melos exec -- "flutter format --set-exit-if-changed ."
+  check_format: melos exec -- "flutter format --set-exit-if-changed ."
   analyze: melos exec -- "flutter analyze ."
   test:
     name: Run flutter tests
