@@ -24,10 +24,10 @@ jobs:
       run: flutter pub get
 
     - name: Run formatter
-      run: flutter format --set-exit-if-changed .
+      run: sh scripts/format.sh
 
     - name: Run analyzer
-      run: flutter analyze .
+      run: sh scripts/analyze.sh
 
     - name: Run unit tests
-      run: flutter test .
+      run: sh scripts/tests.sh
