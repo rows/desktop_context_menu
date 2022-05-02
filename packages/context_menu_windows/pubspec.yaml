@@ -1,6 +1,6 @@
 name: context_menu_windows
 description: The implementation of the context menu plugin for Windows.
-version: 0.0.1
+version: 0.1.0
 publish_to: 'none'
 
 environment:

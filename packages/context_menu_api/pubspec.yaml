@@ -1,6 +1,6 @@
 name: context_menu_api
 description: The common API for context menu platform plugins.
-version: 0.0.1
+version: 0.1.0
 publish_to: 'none'
 
 environment:

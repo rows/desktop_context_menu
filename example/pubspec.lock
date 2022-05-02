@@ -49,28 +49,28 @@ packages:
       path: "../packages/context_menu_api"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   context_menu_macos:
     dependency: transitive
     description:
       path: "../packages/context_menu_macos"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   context_menu_plugin:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   context_menu_windows:
     dependency: transitive
     description:
       path: "../packages/context_menu_windows"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   cupertino_icons:
     dependency: "direct main"
     description:
