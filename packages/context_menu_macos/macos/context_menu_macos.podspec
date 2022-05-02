@@ -4,14 +4,14 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'context_menu_macos'
-  s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.version          = '0.1.0'
+  s.summary          = 'Flutter MacOS implementation of context menu.'
   s.description      = <<-DESC
-A new flutter plugin project.
+A MacOS implementation of the context_menu_plugin.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/rows/context_menu_plugin'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Rows' => 'opensource@rows.com' }
   s.source           = { :path => '.' }
   s.source_files     = 'Classes/**/*'
   s.dependency 'FlutterMacOS'
