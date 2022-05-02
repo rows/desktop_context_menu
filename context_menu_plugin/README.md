@@ -35,12 +35,12 @@ Available for MacOS and Windows.
 To invoke the context menu you can do the following:
 
 ```dart
-final selectedItem = await ContextMenuApi.instance.showContextMenu(menuItems: [...]);
+final selectedItem = await showContextMenu(menuItems: [...]);
 ```
 
 In case an item is selected in the context menu, that item is returned. If no item is selected, `null` is returned.
 
-A context menu item can be of type `ContextMenuItem` or `ContextMenuSeparator`. 
+A context menu item can be of type `ContextMenuItem` or `ContextMenuSeparator`.
 
 To define a menu item of type `ContextMenuItem`, you can do the following:
 

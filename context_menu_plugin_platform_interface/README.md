@@ -11,4 +11,4 @@ platform-specific behavior, and when you register your plugin, set the default
 `ContextMenuPluginPlatform.instance = MyPlatformUrlLauncher()`.
 
 [1]: ../context_menu_plugin
-[2]: lib/src/platform_interface/context_menu_plugin_platform.dart.dart
+[2]: lib/src/platform_interface/context_menu_plugin_platform.dart
