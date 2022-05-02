@@ -1,0 +1,13 @@
+name: context_menu_plugin
+
+packages:
+  - "**"
+
+scripts:
+  format: melos exec -- "flutter format --set-exit-if-changed ."
+  analyze: melos exec -- "flutter analyze ."
+  test:
+    name: Run flutter tests
+    run: melos exec flutter test
+    select-package:
+      dir-exists: test
