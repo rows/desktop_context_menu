@@ -58,21 +58,21 @@ packages:
     source: path
     version: "0.1.0"
   desktop_context_menu_macos:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       path: "../../desktop_context_menu_macos"
       relative: true
     source: path
     version: "0.1.0"
   desktop_context_menu_platform_interface:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       path: "../../desktop_context_menu_platform_interface"
       relative: true
     source: path
     version: "0.1.0"
   desktop_context_menu_windows:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       path: "../../desktop_context_menu_windows"
       relative: true
@@ -207,3 +207,4 @@ packages:
     version: "2.1.1"
 sdks:
   dart: ">=2.14.0 <3.0.0"
+  flutter: ">=2.5.0"
