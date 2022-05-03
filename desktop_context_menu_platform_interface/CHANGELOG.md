@@ -1,6 +1,6 @@
 # 0.1.1
 
-* Expose `ContextMenuItemBase`.
+* Update `desktop_context_menu` dependency.
 
 ## 0.1.0
 
