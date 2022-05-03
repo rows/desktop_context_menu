@@ -1,4 +1,4 @@
-name: context_menu_plugin
+name: desktop_context_menu
 
 packages:
   - "**"
