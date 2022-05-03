@@ -1,7 +1,7 @@
 import 'package:desktop_context_menu_platform_interface/desktop_context_menu_platform_interface.dart';
 
 export 'package:desktop_context_menu_platform_interface/desktop_context_menu_platform_interface.dart'
-    show ContextMenuItem, ContextMenuSeparator;
+    show ContextMenuItem, ContextMenuSeparator, ContextMenuItemBase;
 
 /// Exposes a simple API to show a context menu at the mouse coordinates.
 Future<ContextMenuItem?> showContextMenu({
