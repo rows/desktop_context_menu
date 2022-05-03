@@ -8,8 +8,7 @@ environment:
   flutter: ">=2.5.0"
 
 dependencies:
-  desktop_context_menu_platform_interface:
-    path: ../desktop_context_menu_platform_interface
+  desktop_context_menu_platform_interface: ^0.1.0
   flutter:
     sdk: flutter
 
