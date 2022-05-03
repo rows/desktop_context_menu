@@ -1,6 +1,6 @@
 name: desktop_context_menu
 description: A plugin that opens a context menu on the cursor position.
-version: 0.1.0
+version: 0.1.1
 repository: https://github.com/rows/desktop_context_menu/tree/main/desktop_context_menu
 homepage: https://github.com/rows/desktop_context_menu/tree/main/desktop_context_menu
 issue_tracker: https://github.com/rows/desktop_context_menu/issues
@@ -10,9 +10,9 @@ environment:
   flutter: ">=2.5.0"
 
 dependencies:
-  desktop_context_menu_platform_interface: ^0.1.0
-  desktop_context_menu_windows: ^0.1.0
-  desktop_context_menu_macos: ^0.1.0
+  desktop_context_menu_platform_interface: ^0.1.1
+  desktop_context_menu_windows: ^0.1.1
+  desktop_context_menu_macos: ^0.1.1
   flutter:
     sdk: flutter
 
