@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late _ContextMenuMacosTester contextMenuMacosTester;
+  late _DesktopContextMenuMacosTester contextMenuMacosTester;
 
   final menuItems = [
     ContextMenuItem(title: 'Item 1', onTap: () {}),
@@ -24,7 +24,7 @@ void main() {
   ];
 
   setUpAll(() {
-    contextMenuMacosTester = const _ContextMenuMacosTester();
+    contextMenuMacosTester = const _DesktopContextMenuMacosTester();
   });
 
   group('showContextMenu', () {
@@ -94,14 +94,14 @@ void main() {
   });
 }
 
-class _ContextMenuMacosTester {
-  const _ContextMenuMacosTester();
+class _DesktopContextMenuMacosTester {
+  const _DesktopContextMenuMacosTester();
 
   Future<ContextMenuItemBase?> mockSelectedItem({
     required int selectedItemId,
     required List<ContextMenuItemBase> menuItems,
   }) async {
-    final contextMenuMacos = ContextMenuMacos();
+    final contextMenuMacos = DesktopContextMenuMacos();
 
     contextMenuMacos.channel.setMockMethodCallHandler((methodCall) async {
       return selectedItemId;

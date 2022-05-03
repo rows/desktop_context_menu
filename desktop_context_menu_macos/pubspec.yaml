@@ -23,5 +23,5 @@ flutter:
     implements: desktop_context_menu
     platforms:
       macos:
-        dartPluginClass: ContextMenuMacos
-        pluginClass: ContextMenuMacosPlugin
+        dartPluginClass: DesktopContextMenuMacos
+        pluginClass: DesktopContextMenuMacosPlugin

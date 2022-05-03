@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 
 const MethodChannel _channel = MethodChannel('desktop_context_menu_macos');
 
-class ContextMenuMacos extends DesktopContextMenuPlatform {
+class DesktopContextMenuMacos extends DesktopContextMenuPlatform {
   @visibleForTesting
   MethodChannel get channel => _channel;
 
   /// Registers this class as the default instance
   /// of [DesktopContextMenuPlatform].
   static void registerWith() {
-    DesktopContextMenuPlatform.instance = ContextMenuMacos();
+    DesktopContextMenuPlatform.instance = DesktopContextMenuMacos();
   }
 
   @override

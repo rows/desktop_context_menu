@@ -1,7 +1,7 @@
 import Cocoa
 import FlutterMacOS
 
-public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
+public class DesktopContextMenuMacosPlugin: NSObject, FlutterPlugin {
   /// Used to save the flutter app window.
   let registrar: FlutterPluginRegistrar
 
@@ -52,7 +52,7 @@ public class ContextMenuMacosPlugin: NSObject, FlutterPlugin {
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "desktop_context_menu_macos", binaryMessenger: registrar.messenger)
-    let instance = ContextMenuMacosPlugin(registrar)
+    let instance = DesktopContextMenuMacosPlugin(registrar)
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
