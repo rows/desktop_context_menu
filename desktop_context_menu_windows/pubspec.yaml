@@ -1,0 +1,27 @@
+name: desktop_context_menu_windows
+description: The implementation of the context menu plugin for Windows.
+version: 0.1.0
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.5.0"
+
+dependencies:
+  desktop_context_menu_platform_interface:
+    path: ../desktop_context_menu_platform_interface
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  rows_lint: 0.1.1
+
+flutter:
+  plugin:
+    implements: desktop_context_menu
+    platforms:
+      windows:
+        dartPluginClass: DesktopContextMenuWindows
+        pluginClass: DesktopContextMenuWindowsPlugin
