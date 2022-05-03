@@ -12,7 +12,6 @@
 <p align="center">
   <a title="Pub" href="https://pub.dev/packages/desktop_context_menu" ><img src="https://img.shields.io/pub/v/desktop_context_menu.svg?style=popout" /></a>
   <a title="Rows lint" href="https://pub.dev/packages/rows_lint" ><img src="https://img.shields.io/badge/Styled%20by-Rows-754F6C?style=popout" /></a>
-  <a title="Melos" href="https://github.com/invertase/melos"><img src="https://img.shields.io/badge/maintained%20with-melos-f700ff.svg"/></a>
 </p>
 
 # Desktop Context Menu
