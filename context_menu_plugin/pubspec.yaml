@@ -1,0 +1,31 @@
+name: context_menu_plugin
+description: A plugin that opens a context menu on the cursor position.
+version: 0.1.0
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  context_menu_plugin_platform_interface:
+    path: ../context_menu_plugin_platform_interface
+  context_menu_windows:
+    path: ../context_menu_windows
+  context_menu_macos:
+    path: ../context_menu_macos
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  rows_lint: 0.1.1
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      windows:
+        default_package: context_menu_windows
+      macos:
+        default_package: context_menu_macos

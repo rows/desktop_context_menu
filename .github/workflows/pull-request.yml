@@ -20,14 +20,14 @@ jobs:
       with:
         channel: 'stable'
 
-    - name: Get dependencies
-      run: flutter pub get
+    - name: Activate melos
+      uses: bluefireteam/melos-action@v1
 
-    - name: Run formatter
-      run: flutter format --set-exit-if-changed .
+    - name: Check format
+      run: melos run check_format
 
     - name: Run analyzer
-      run: flutter analyze .
+      run: melos run analyze
 
     - name: Run unit tests
-      run: flutter test .
+      run: melos run test --no-select
