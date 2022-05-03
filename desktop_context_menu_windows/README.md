@@ -16,4 +16,12 @@
 
 # desktop_context_menu_windows
 
-Context menu implementation for Windows.
+The Windows implementation of [`desktop_context_menu`][1].
+
+## Usage
+
+This package is [endorsed][2], which means you can simply use `desktop_context_menu`
+normally. This package will be automatically included in your app when you do.
+
+[1]: https://github.com/rows/desktop_context_menu/tree/main/desktop_context_menu
+[2]: https://flutter.dev/docs/development/packages-and-plugins/developing-packages#endorsed-federated-plugin

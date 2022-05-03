@@ -27,5 +27,5 @@ platform-specific behavior, and when you register your plugin, set the default
 `DesktopContextMenuPlatform` by calling
 `DesktopContextMenuPlatform.instance = MyPlatformContextMenu()`.
 
-[1]: ../desktop_context_menu
+[1]: https://github.com/rows/desktop_context_menu/tree/main/desktop_context_menu
 [2]: lib/src/platform_interface/desktop_context_menu_platform.dart
