@@ -42,8 +42,24 @@ public class DesktopContextMenuMacosPlugin: NSObject, FlutterPlugin {
 
   /// Maps special shortcuts to the corresponding character.
   let specialShortcuts: [String: Int] = [
-    "Delete" : NSDeleteCharacter,
-    "Backspace" : NSBackspaceCharacter
+    "Delete" : NSDeleteFunctionKey,
+    "Backspace" : NSBackspaceCharacter,
+    "F1" : NSF1FunctionKey,
+    "F2" : NSF2FunctionKey,
+    "F3" : NSF3FunctionKey,
+    "F4" : NSF4FunctionKey,
+    "F5" : NSF5FunctionKey,
+    "F6" : NSF6FunctionKey,
+    "F7" : NSF7FunctionKey,
+    "F8" : NSF8FunctionKey,
+    "F9" : NSF9FunctionKey,
+    "F10" : NSF10FunctionKey,
+    "F11" : NSF11FunctionKey,
+    "F12" : NSF12FunctionKey,
+    "Arrow Up" : NSUpArrowFunctionKey,
+    "Arrow Down" : NSDownArrowFunctionKey,
+    "Arrow Left" : NSLeftArrowFunctionKey,
+    "Arrow Right" : NSRightArrowFunctionKey
   ]
 
   /// Maps a `shortcutModifier` to a `NSEvent.ModifierFlags` struct.
