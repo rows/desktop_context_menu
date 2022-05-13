@@ -40,6 +40,12 @@ public class DesktopContextMenuMacosPlugin: NSObject, FlutterPlugin {
     case control = "control"
   }
 
+  /// Maps special shortcuts to the corresponding character.
+  let specialShortcuts: [String: Int] = [
+    "Delete" : NSDeleteCharacter,
+    "Backspace" : NSBackspaceCharacter
+  ]
+
   /// Maps a `shortcutModifier` to a `NSEvent.ModifierFlags` struct.
   ///
   /// Used to define the `keyEquivalentModifierMask` property of a `NSMenuItem`.
@@ -109,6 +115,14 @@ public class DesktopContextMenuMacosPlugin: NSObject, FlutterPlugin {
         let shortcut = item["shortcut"] as? NSDictionary
         let key = shortcut?["key"] as? String
 
+        var keyEquivalent: String
+
+        if let key = key, let value = specialShortcuts[key] {
+          keyEquivalent = String(Character(UnicodeScalar(value)!))
+        } else {
+          keyEquivalent = key?.lowercased() ?? ""
+        }
+
         menuItem = NSMenuItem(
           title: item["title"] as! String,
           action: #selector(emitSelectedItemId(_:)),   
@@ -117,7 +131,7 @@ public class DesktopContextMenuMacosPlugin: NSObject, FlutterPlugin {
           // add a `SHIFT` modifier to the shortcut. To prevent that, we convert
           // the `key` to lower case and decide to use `SHIFT` or not with the
           // value of `shortcut[shortcutModifier.shift.rawValue]`.
-          keyEquivalent: key?.lowercased() ?? ""
+          keyEquivalent: keyEquivalent
         )
 
         let modifiers = getShortcutModifiers(shortcut)

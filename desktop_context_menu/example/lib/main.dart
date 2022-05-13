@@ -69,7 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
       menuItems: [
         ContextMenuItem(
           title: 'Copy',
-          onTap: () {},
+          onTap: () {
+            print('Tapped copy');
+          },
           shortcut: SingleActivator(
             LogicalKeyboardKey.keyC,
             meta: Platform.isMacOS,
@@ -78,7 +80,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         ContextMenuItem(
           title: 'Paste',
-          onTap: () {},
+          onTap: () {
+            print('Tapped paste');
+          },
           shortcut: SingleActivator(
             LogicalKeyboardKey.keyV,
             meta: Platform.isMacOS,
@@ -87,7 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         ContextMenuItem(
           title: 'Paste as values',
-          onTap: () {},
+          onTap: () {
+            print('Tapped paste as values');
+          },
           shortcut: SingleActivator(
             LogicalKeyboardKey.keyV,
             meta: Platform.isMacOS,
@@ -98,7 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
         const ContextMenuSeparator(),
         ContextMenuItem(
           title: 'Item number two',
-          onTap: () {},
+          onTap: () {
+            print('Tapped item number two');
+          },
         ),
         const ContextMenuItem(title: 'Disabled item'),
         const ContextMenuItem(
@@ -116,7 +124,9 @@ class _MyHomePageState extends State<MyHomePage> {
             LogicalKeyboardKey.add,
             alt: true,
           ),
-          onTap: () {},
+          onTap: () {
+            print('Tapped zoom in');
+          },
         ),
         ContextMenuItem(
           title: 'Zoom out',
@@ -124,7 +134,9 @@ class _MyHomePageState extends State<MyHomePage> {
             LogicalKeyboardKey.minus,
             alt: true,
           ),
-          onTap: () {},
+          onTap: () {
+            print('Tapped zoom out');
+          },
         ),
         const ContextMenuSeparator(),
         ContextMenuItem(
@@ -133,7 +145,9 @@ class _MyHomePageState extends State<MyHomePage> {
             LogicalKeyboardKey.keyJ,
             control: true,
           ),
-          onTap: () {},
+          onTap: () {
+            print('Tapped control shortcut');
+          },
         ),
       ],
     );
@@ -142,6 +156,6 @@ class _MyHomePageState extends State<MyHomePage> {
       return null;
     }
 
-    print(selectedItem.title);
+    selectedItem.onTap?.call();
   }
 }
