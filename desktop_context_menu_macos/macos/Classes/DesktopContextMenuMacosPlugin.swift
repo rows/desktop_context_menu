@@ -59,7 +59,9 @@ public class DesktopContextMenuMacosPlugin: NSObject, FlutterPlugin {
     "Arrow Up" : NSUpArrowFunctionKey,
     "Arrow Down" : NSDownArrowFunctionKey,
     "Arrow Left" : NSLeftArrowFunctionKey,
-    "Arrow Right" : NSRightArrowFunctionKey
+    "Arrow Right" : NSRightArrowFunctionKey,
+    "Enter" : NSEnterCharacter,
+    "Tab" : NSTabCharacter
   ]
 
   /// Maps a `shortcutModifier` to a `NSEvent.ModifierFlags` struct.
